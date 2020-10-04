@@ -9,7 +9,8 @@
     "migrate": "postgrator --config postgrator-config.js",
     "start": "node src/server.js",
     "predeploy": "npm audit",
-    "deploy": "git push heroku master"
+    "deploy": "git push heroku master",
+    "seed": "psql -U admin -d spaced-repetition -f ./seeds/seed.tables.sql"
   },
   "keywords": [],
   "author": "Tom `tomatao` HT <tomht@thinkful.com>",
