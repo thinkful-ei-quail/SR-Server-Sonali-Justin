@@ -25,12 +25,12 @@ VALUES
   (2, 1, 'sayōnara', 'goodbye', 3),
   (3, 1, 'imananjidesuka', 'what time is it?', 4),
   (4, 1, 'arigatōgozaimashita', 'thank you', 5),
-  (5, 1, 'home', 'ie', 6),
-  (6, 1, 'help', 'tasukete', 7),
-  (7, 1, 'please', 'onegaishimasu', 8),
-  (8, 1, 'please', 'onegaishimasu', 9),
-  (9, 1, 'cat', 'neko', 10),
-  (10, 1, 'dog', 'inu', null);
+  (5, 1, 'ie', 'home', 6),
+  (6, 1, 'tasukete', 'help', 7),
+  (7, 1, 'onegaishimasu', 'please', 8),
+  (8, 1, 'nihongo wa hanasemasen', 'I do not speak Japanese', 9),
+  (9, 1, 'neko', 'cat', 10),
+  (10, 1, 'inu', 'dog', null);
 
 UPDATE "language" SET head = 1 WHERE id = 1;
 
