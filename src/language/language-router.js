@@ -31,7 +31,7 @@ languageRouter
       const words = await LanguageService.getLanguageWords(
         req.app.get('db'),
         req.language.id,
-      )
+        )
 
       res.json({
         language: req.language,
@@ -46,7 +46,17 @@ languageRouter
 languageRouter
   .get('/head', async (req, res, next) => {
     // implement me
-    res.send('implement me!')
+    console.log(req.language.head)
+    try {
+      const head = await LanguageService.getLanguageHead(
+        req.app.get('db'),
+        req.language.head)
+
+        
+        res.json(head[0])
+    }  catch (error) {
+      next(error)
+    }
   })
 
 languageRouter
