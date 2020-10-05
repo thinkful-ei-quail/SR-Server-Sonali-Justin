@@ -72,6 +72,12 @@ languageRouter
         error: `Missing 'guess' in request body`,
       })
     }
+    //call service to check answer
+
+    // increment word
+    // update to next word 
+    // if at the end go to summary 
+    
     return res.status(200).send('implement me!')
   })
 
