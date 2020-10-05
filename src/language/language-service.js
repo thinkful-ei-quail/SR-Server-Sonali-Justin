@@ -35,7 +35,7 @@ const LanguageService = {
         'word.original as nextWord',
         'language.total_score as totalScore',
         'word.correct_count as wordCorrectCount',
-        'word.incorrect_count as wordIncorrectCount',
+        'word.incorrect_count as wordIncorrectCount'
       )
       .join('language', 'language.head', 'word.id')
       .where('language.head', head)
