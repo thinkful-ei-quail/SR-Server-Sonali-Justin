@@ -22,9 +22,9 @@ VALUES
 INSERT INTO "word" ("id", "language_id", "original", "translation", "next")
 VALUES
   (1, 1, 'konnichiwa', 'hello', 2),
-  (2, 1, 'sayōnara', 'goodbye', 3),
+  (2, 1, 'sayonara', 'goodbye', 3),
   (3, 1, 'imananjidesuka', 'what time is it?', 4),
-  (4, 1, 'arigatōgozaimashita', 'thank you', 5),
+  (4, 1, 'arigatogozaimashita', 'thank you', 5),
   (5, 1, 'ie', 'home', 6),
   (6, 1, 'tasukete', 'help', 7),
   (7, 1, 'onegaishimasu', 'please', 8),

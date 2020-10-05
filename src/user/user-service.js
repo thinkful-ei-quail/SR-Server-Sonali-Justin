@@ -59,9 +59,9 @@ const UserService = {
 
       const languageWords = [
         ['konnichiwa', 'hello', 2],
-        ['sayōnara', 'goodbye', 3],
+        ['sayonara', 'goodbye', 3],
         ['imananjidesuka', 'what time is it?', 4],
-        ['arigatōgozaimashita', 'thank you', 5],
+        ['arigatogozaimashita', 'thank you', 5],
         ['ie', 'home', 6],
         ['tasukete', 'help', 7],
         ['onegaishimasu', 'please', 8],

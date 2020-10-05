@@ -176,9 +176,9 @@ describe('User Endpoints', function () {
           total_score: 0,
           words: [
             { original: 'konnichiwa', translation: 'hello' },
-            { original: 'sayōnara', translation: 'goodbye' },
+            { original: 'sayonara', translation: 'goodbye' },
             { original: 'imananjidesuka', translation: 'what time is it?' },
-            { original: 'arigatōgozaimashita', translation: 'thank you' },
+            { original: 'arigatogozaimashita', translation: 'thank you' },
             { original: 'ie', translation: 'home' },
             { original: 'tasukete', translation: 'help' },
             { original: 'onegaishimasu', translation: 'please' },
