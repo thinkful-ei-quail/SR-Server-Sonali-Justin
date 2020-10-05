@@ -1,6 +1,8 @@
 const express = require('express')
 const LanguageService = require('./language-service')
 const { requireAuth } = require('../middleware/jwt-auth')
+const jsonParser = express.json();
+
 
 const languageRouter = express.Router()
 
@@ -46,23 +48,31 @@ languageRouter
 languageRouter
   .get('/head', async (req, res, next) => {
     // implement me
-    console.log(req.language.head)
     try {
-      const head = await LanguageService.getLanguageHead(
+      let head = await LanguageService.getLanguageHead(
         req.app.get('db'),
-        req.language.head)
-
-        
-        res.json(head[0])
-    }  catch (error) {
+        req.language.head
+        )
+        head = head[0];
+        res.json(head)
+        next()
+    } catch(error) {
       next(error)
     }
+   
   })
 
 languageRouter
-  .post('/guess', async (req, res, next) => {
+  .post('/guess', jsonParser, async (req, res, next) => {
     // implement me
-    res.send('implement me!')
+    const { guess } = req.body
+    const guessObj = { guess }
+    if (!guessObj[guess]) {
+      return res.status(400).json({
+        error: `Missing 'guess' in request body`,
+      })
+    }
+    return res.status(200).send('implement me!')
   })
 
 module.exports = languageRouter
