@@ -1,3 +1,6 @@
+const { raw } = require("express")
+const wordRouter = require("../words/word-router")
+
 const LanguageService = {
   getUsersLanguage(db, user_id) {
     return db
@@ -60,9 +63,35 @@ const LanguageService = {
       })
       
   },
-  updateIncorrectCount(db, head) {
+  increaseIncorrectCount(db, head) {
     return db
     .from('word')
+  },
+  increaseCorrectCount(db, head) {
+    return db
+    .from('word')
+    .where('id', '=', head)
+    .increment('correct_count', 1)
+  },
+  increaseMemoryValue(db, head) {
+    return db
+    .from('word')
+    .select('word.memory_value')
+    .where('id', '=', head)
+    .first()
+    .then(res => {
+      let newMemoryValue = res['memory_value'] * 2
+      return db
+      .from('word')
+      .where('id', head)
+      .update('memory_value', newMemoryValue)
+    })
+  },
+  increaseTotalCount(db) {
+    return db
+      .from('language')
+      .where('id', '=', 1)
+      .increment('total_score', 1)
   },
   updateNextValue(db, head, previousWord) {
     return db 

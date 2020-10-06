@@ -135,6 +135,18 @@ languageRouter
       
       if(translation[0].translation == userGuess) {
         // happy path
+        await LanguageService.increaseTotalCount(
+          req.app.get('db')
+        )
+        await LanguageService.increaseCorrectCount(
+          req.app.get('db'),
+          currentHead
+        )
+
+        await LanguageService.increaseMemoryValue(
+          req.app.get('db'),
+          currentHead
+        )
         await LanguageService.updateHead(
           req.app.get('db'),
           currentHead
