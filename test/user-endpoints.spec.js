@@ -182,7 +182,7 @@ describe('User Endpoints', function () {
             { original: 'ie', translation: 'home' },
             { original: 'tasukete', translation: 'help' },
             { original: 'onegaishimasu', translation: 'please' },
-            { original: 'nihongo wa hanasemasen', translation: 'I do not speak Japanese' },
+            { original: 'nihongo wa hanasemasen', translation: 'i do not speak japanese' },
             { original: 'neko', translation: 'cat' },
             { original: 'inu', translation: 'dog' },
           ]

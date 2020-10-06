@@ -39,6 +39,18 @@ const LanguageService = {
       )
       .join('language', 'language.head', 'word.id')
       .where('language.head', head)
+  },
+  getCorrectAnswer(db, currentHead) {
+    return db
+      .from('word')
+      .select('word.translation')
+      .join('language', currentHead, 'word.id')
+  },
+  updateHead(db, newHead) {
+    return db
+      .from('language')
+      .update('head', newHead)
+      .returning(['total_score', 'head'])
   }
 }
 
