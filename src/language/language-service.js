@@ -46,11 +46,29 @@ const LanguageService = {
       .select('word.translation')
       .join('language', currentHead, 'word.id')
   },
-  updateHead(db, newHead) {
+  updateHead(db, head) {
     return db
       .from('language')
-      .update('head', newHead)
-      .returning(['total_score', 'head'])
+      .join('word', 'word.id', head)
+      .select('word.next')
+      .first()
+      .then(res => {
+        return db
+        .from('language')
+        .update('head', res.next)
+        .returning(['head'])
+      })
+      
+  },
+  updateIncorrectCount(db, head) {
+    return db
+    .from('word')
+  },
+  updateNextValue(db, head, previousWord) {
+    return db 
+    .from('word')
+    .where('word.id', head)
+    .update('next', previousWord)
   }
 }
 

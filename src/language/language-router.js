@@ -68,6 +68,7 @@ languageRouter
     const { guess } = req.body;
     const userGuess = guess
     let currentHead = req.language.head;
+    let previousWord = currentHead
     if (!userGuess) {
       return res.status(400).json({
         error: `Missing 'guess' in request body`,
@@ -83,40 +84,73 @@ languageRouter
       const response = {};
       if(translation[0].translation !== userGuess) {
         // unhappy path
-        currentHead = currentHead + 1; 
-        await LanguageService.updateHead(
+        // update incorrect count at head
+        await LanguageService.updateIncorrectCount(
           req.app.get('db'),
           currentHead
         )
-
-        let newWord = await LanguageService.getLanguageHead(
-          req.app.get('db'),
-          currentHead
+        console.log('current', currentHead)
+        //update head to point to current word's next value if current is == 1
+        if (currentHead === 1) {
+          await LanguageService.updateHead(
+            req.app.get('db'),
+            currentHead
           )
-
-        const {nextWord, totalScore, wordCorrectCount, wordIncorrectCount} = newWord[0];
-        
-        let response = {
-          nextWord: nextWord,
-          totalScore: totalScore,
-          wordCorrectCount: wordCorrectCount,
-          wordIncorrectCount: wordIncorrectCount,
-          answer: translation[0].translation,
-          isCorrect: false
+          let newWord = await LanguageService.getLanguageHead(
+            req.app.get('db'),
+            currentHead
+            )
+            console.log(newWord)
+          // console.log(test)
         }
-        console.log(response)
-        return res.status(200).json(response)
+        else {
+
+          // get new word incorrect count should not update for this word 
+          let newWord = await LanguageService.getLanguageHead(
+            req.app.get('db'),
+            currentHead
+            )
+
+            await LanguageService.updateNextValue(
+              req.app.get('db'),
+              currentHead,
+              previousWord
+            )
+            console.log(newWord)
+            console.log('previous', previousWord)
+          }
+        // const {nextWord, totalScore, wordCorrectCount, wordIncorrectCount} = newWord[0];
+        
+        // let response = {
+        //   nextWord: nextWord,
+        //   totalScore: totalScore,
+        //   wordCorrectCount: wordCorrectCount,
+        //   wordIncorrectCount: wordIncorrectCount,
+        //   answer: translation[0].translation,
+        //   isCorrect: false
+        // }
+        // console.log(response)
+        return res.status(200).json({})
       }
       
       if(translation[0].translation == userGuess) {
         // happy path
+        await LanguageService.updateHead(
+          req.app.get('db'),
+          currentHead
+        )
+        let newWord = await LanguageService.getLanguageHead(
+          req.app.get('db'),
+          currentHead
+          )
+          console.log(newWord)
         let response = {
         //   nextWord: testLanguagesWords[1].original,
         //   totalScore: 0,
         //   wordCorrectCount: 0,
         //   wordIncorrectCount: 0,
-        //   answer: testLanguagesWords[0].translation,
-          isCorrect: true
+        answer: translation[0].translation,
+        isCorrect: true
         }
         return res.status(200).json(response)
       }
