@@ -8,9 +8,11 @@
     "dev": "nodemon src/server.js",
     "migrate": "postgrator --config postgrator-config.js",
     "migrate:test": "env MIGRATION_DB_NAME=spaced-repetition-test npm run migrate",
+    "migrate:production": "heroku run npm run migrate",
     "start": "node src/server.js",
     "predeploy": "npm audit",
     "deploy": "git push heroku master",
+    "postdeploy": "npm run migrate:production",
     "seed": "psql -U admin -d spaced-repetition -f ./seeds/seed.tables.sql"
   },
   "keywords": [],
