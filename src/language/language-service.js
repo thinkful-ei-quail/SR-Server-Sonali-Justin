@@ -1,6 +1,7 @@
 const { raw } = require("express")
 const wordRouter = require("../words/word-router")
 
+
 const LanguageService = {
   getUsersLanguage(db, user_id) {
     return db
@@ -10,97 +11,50 @@ const LanguageService = {
         'language.name',
         'language.user_id',
         'language.head',
-        'language.total_score',
+        'language.total_score'
       )
       .where('language.user_id', user_id)
-      .first()
+      .first();
   },
 
   getLanguageWords(db, language_id) {
     return db
       .from('word')
-      .select(
-        'id',
-        'language_id',
-        'original',
-        'translation',
-        'next',
-        'memory_value',
-        'correct_count',
-        'incorrect_count',
-      )
+      .select()
       .where({ language_id })
+      .orderBy('id', 'asc');
   },
-  getLanguageHead(db, head) {
+
+  getWordById(db, id) {
     return db
       .from('word')
-      .select(
-        'word.original as nextWord',
-        'language.total_score as totalScore',
-        'word.correct_count as wordCorrectCount',
-        'word.incorrect_count as wordIncorrectCount'
-      )
-      .join('language', 'language.head', 'word.id')
-      .where('language.head', head)
+      .select('*')
+      .where({ id });
   },
-  getCorrectAnswer(db, currentHead) {
-    return db
-      .from('word')
-      .select('word.translation')
-      .join('language', currentHead, 'word.id')
+
+  updateWords(db, currNode, nextNode) {
+    return db('word')
+      .where({ id: currNode.id, language_id: currNode.language_id })
+      .update({
+        memory_value: currNode.memory_value,
+        correct_count: currNode.correct_count,
+        incorrect_count: currNode.incorrect_count,
+        next: nextNode != null ? nextNode.id : null
+      });
   },
-  updateHead(db, head) {
-    return db
-      .from('language')
-      .join('word', 'word.id', head)
-      .select('word.next')
-      .first()
-      .then(res => {
-        return db
-        .from('language')
-        .update('head', res.next)
-        .returning(['head'])
-      })
-      
+
+  updateHead(db, id, user_id, head) {
+    return db('language')
+      .where({ id, user_id })
+      .update({ head });
   },
-  increaseIncorrectCount(db, head) {
-    return db
-    .from('word')
-    .where('id', '=', head)
-    .increment('incorrect_count', 1)
-  },
-  increaseCorrectCount(db, head) {
-    return db
-    .from('word')
-    .where('id', '=', head)
-    .increment('correct_count', 1)
-  },
-  increaseMemoryValue(db, head) {
-    return db
-    .from('word')
-    .select('word.memory_value')
-    .where('id', '=', head)
-    .first()
-    .then(res => {
-      let newMemoryValue = res['memory_value'] * 2
-      return db
-      .from('word')
-      .where('id', head)
-      .update('memory_value', newMemoryValue)
-    })
-  },
-  increaseTotalCount(db) {
-    return db
-      .from('language')
-      .where('id', '=', 1)
-      .increment('total_score', 1)
-  },
-  updateNextValue(db, head, previousWord) {
-    return db 
-    .from('word')
-    .where('word.id', head)
-    .update('next', previousWord)
+
+  updateTotalScore(db, id, user_id, total_score) {
+    return db('language')
+      .where({ id, user_id })
+      .update({ total_score });
   }
-}
+};
+
 
 module.exports = LanguageService
