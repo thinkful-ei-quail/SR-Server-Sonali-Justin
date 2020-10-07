@@ -66,6 +66,8 @@ const LanguageService = {
   increaseIncorrectCount(db, head) {
     return db
     .from('word')
+    .where('id', '=', head)
+    .increment('incorrect_count', 1)
   },
   increaseCorrectCount(db, head) {
     return db

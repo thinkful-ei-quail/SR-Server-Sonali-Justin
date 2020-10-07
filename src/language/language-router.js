@@ -2,7 +2,7 @@ const express = require('express')
 const LanguageService = require('./language-service')
 const { requireAuth } = require('../middleware/jwt-auth')
 const jsonParser = express.json();
-
+const LinkedList = require('./linkedList');
 
 const languageRouter = express.Router()
 
@@ -85,7 +85,7 @@ languageRouter
       if(translation[0].translation !== userGuess) {
         // unhappy path
         // update incorrect count at head
-        await LanguageService.updateIncorrectCount(
+        await LanguageService.increaseIncorrectCount(
           req.app.get('db'),
           currentHead
         )
