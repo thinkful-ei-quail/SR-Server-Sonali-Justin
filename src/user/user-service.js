@@ -65,7 +65,7 @@ const UserService = {
         ['ie', 'home', 6],
         ['tasukete', 'help', 7],
         ['onegaishimasu', 'please', 8],
-        ['nihongo wa hanasemasen', 'I do not speak Japanese', 9],
+        ['nihongo wa hanasemasen', 'i do not speak japanese', 9],
         ['neko', 'cat', 10],
         ['inu', 'dog', null],
       ]
