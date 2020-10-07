@@ -49,13 +49,6 @@ languageRouter
   .get('/head', async (req, res, next) => {
     // implement me
     try {
-      // let head = await LanguageService.getLanguageHead(
-      //   req.app.get('db'),
-      //   req.language.head
-      //   )
-      //   head = head[0];
-      //   head.id = head.id; // I added this line that I needed for another api call
-      //   res.json(head)
 
       const [word] = await LanguageService.getWordById(
         req.app.get('db'),
