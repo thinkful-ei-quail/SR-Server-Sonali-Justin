@@ -1,5 +1,5 @@
 {
-  "name": "express-boilerplate",
+  "name": "japanese-spaced-repetition-server",
   "version": "0.0.1",
   "description": "",
   "main": "src/server.js",
@@ -14,7 +14,7 @@
     "seed": "psql -U admin -d spaced-repetition -f ./seeds/seed.tables.sql"
   },
   "keywords": [],
-  "author": "Tom `tomatao` HT <tomht@thinkful.com>",
+  "author": "Sonali Najera, Justin Foster",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
